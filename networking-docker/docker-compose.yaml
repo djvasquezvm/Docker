@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+
+  nginx:
+          image: nginx
+          networks:
+            lan:
+              ipv4_address: 192.168.0.60
+
+networks:
+  lan:
+          driver: ipvlan
+          driver_opts:
+            parent: wlan0
+          ipam:
+            config:
+              - subnet: "192.168.0.0/24"
+                gateway: "192.168.0.1"
+#Macvlan and ipvlan cannot be used on the same parent interface at the same time.
+
+#Use Ipvlan when:
+
+#Parent interface is wireless.
+#Your parent interface performance drops because you have exceeded the number of different MAC addresses. For production, you should consider swapping your NIC for a better one and use macvlans.
+#Physical switch limits the number of MAC addresses allowed on a port (Port Security).  For production, you should solve this policy issue with your network administrator and use macvlans.
+#You run an advanced network scenario, such as advertising the service you run in the VM or container with the BGP daemon running in the same VM or container.
+
+#Use Macvlan:
+
+#In every other scenario.

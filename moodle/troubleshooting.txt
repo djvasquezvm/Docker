@@ -1,0 +1,26 @@
+#Copy config in web browser to a file config.php
+
+#Also copy this to see errors:
+#// @error_reporting(E_ALL | E_STRICT); // NOT FOR PRODUCTION SERVERS!
+#// @ini_set('display_errors', '1');    // NOT FOR PRODUCTION SERVERS!
+#// $CFG->debug = (E_ALL | E_STRICT);   // === DEBUG_DEVELOPER - NOT FOR PRODUCTION SERVERS!
+#// $CFG->debugdisplay = 1;             // NOT FOR PRODUCTION SERVERS!
+
+#Change file permissions
+#chown 1005:1005 config.php
+
+#Version
+# $version in version.php
+#INSERT INTO `mdl_config` (`name`, `value`) VALUES ('version', '$version'); 
+ 
+#Delete Cache in moodledata
+rm -rf cache/ localcache/ sessions/
+
+#Insert database
+INSERT INTO `mdl_config` (`name`, `value`) 
+VALUES 
+('defaultpreference_maildisplay', '2'), 
+('defaultpreference_mailformat', '1'), 
+('defaultpreference_maildigest', '0'), 
+('defaultpreference_autosubscribe', '1'), 
+('defaultpreference_trackforums', '0'); 
